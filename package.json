@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run clean && tsc && npm run copy-files",
     "clean": "rm -rf ./dist",
-    "copy-files": "cp -r ./src/public/ ./dist/",
+    "copy-files": "cp -r ./src/public/* ./dist/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
