@@ -23,7 +23,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'My App',
+      title: 'e7 Timeline',
       template: 'index.html'
     })
   ]
