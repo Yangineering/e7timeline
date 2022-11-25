@@ -21,7 +21,7 @@ jobs:
 
       - name: Build
         run: |
-          npm ci
+          npm i
           npx webpack
 
       - name: Upload GitHub Pages artifact
