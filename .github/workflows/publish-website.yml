@@ -30,19 +30,10 @@ jobs:
           npm ci
           npm run build-production
 
-      - name: Compress action step
-        uses: a7ul/tar-action@v1.1.0
-        id: compress
-        with:
-          command: c
-          cwd: ./dist
-          files: |
-            ./index.html
-            ./components/*
-          outPath: github-pages.tar.gz
-
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v1.0.5
+        with:
+          path: ./dist
 
       - name: Deploy GitHub Pages site
         uses: actions/deploy-pages@v1.2.3
