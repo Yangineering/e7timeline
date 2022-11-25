@@ -3,13 +3,15 @@ name: Publish Website
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-deploy:
     permissions:
-      contents: write
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
@@ -26,10 +28,21 @@ jobs:
       - name: Build
         run: |
           npm ci
-          npm run build
+          npm run build-production
 
-      - name: GitHub Pages action
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Compress action step
+        uses: a7ul/tar-action@v1.1.0
+        id: compress
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          command: c
+          cwd: ./dist
+          files: |
+            ./index.html
+            ./components/*
+          outPath: github-pages.tar.gz
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v1.0.5
+
+      - name: Deploy GitHub Pages site
+        uses: actions/deploy-pages@v1.2.3

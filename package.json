@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run clean && tsc && npm run copy-files",
+    "build-production": "tsc && npm run copy-files && npm run gh-page-zip",
+    "gh-page-zip": "",
     "clean": "rm -rf ./dist",
     "copy-files": "cp -r ./src/public/* ./dist/",
     "test": "echo \"Error: no test specified\" && exit 1"
