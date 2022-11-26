@@ -13,14 +13,13 @@ const state = r({
 })
 
 const app = t`
-<h1>e7 Timeline</h1>
-<h2>Events</h2>
-${events()}
+<div class="grid grid-cols-5">
+  <h1>e7 Timeline</h1>
+  ${events()}
 
-<h2>Banners</h2>
-${banners()}
+  ${banners()}
 
-<h2>Patch Notes</h2>
-${patches()}
+  ${patches()}
+</div>
 `
 app(appElement);
