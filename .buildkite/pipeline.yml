@@ -1,4 +1,9 @@
 steps:
+  - label: ":docker: Build"
+    plugins:
+      - docker-compose#v4.7.0:
+          build: build-env
+          image-repository: index.docker.io/endqwerty/alpine-node
   - command: "./build.sh"
     artifact_paths: "dist/*"
     plugins:
@@ -6,8 +11,6 @@ steps:
         username: endqwerty
         password-env: MY_DOCKER_LOGIN_PASSWORD
     - docker-compose#v4.7.0:
-          config:
-            - .buildkite/docker-compose.yml
           env:
             - BUILDKITE_BUILD_NUMBER
             - BUILDKITE_PULL_REQUEST
@@ -33,12 +36,9 @@ steps:
         username: endqwerty
         password-env: MY_DOCKER_LOGIN_PASSWORD
     - docker-compose#v4.7.0:
-          config:
-            - .buildkite/docker-compose.yml
           env:
             - BUILDKITE_BUILD_NUMBER
             - BUILDKITE_PULL_REQUEST
-            - VERCEL_AUTH
           run: build-env
     - gencer/cache#v2.4.10:
         id: node # or node-16
@@ -60,12 +60,9 @@ steps:
         username: endqwerty
         password-env: MY_DOCKER_LOGIN_PASSWORD
     - docker-compose#v4.7.0:
-          config:
-            - .buildkite/docker-compose.yml
           env:
             - BUILDKITE_BUILD_NUMBER
             - BUILDKITE_PULL_REQUEST
-            - VERCEL_AUTH
           run: build-env
     - gencer/cache#v2.4.10:
         id: node # or node-16
