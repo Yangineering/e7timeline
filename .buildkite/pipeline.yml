@@ -26,8 +26,7 @@ steps:
   - wait
   - commands:
     - "npm i -g vercel"
-    - "npx vercel login --token $VERCEL_AUTH"
-    - "npm run deploy"
+    - "npx vercel --prod --token $VERCEL_AUTH"
     if: build.branch == "main"
     plugins:
     - docker-login#v2.1.0:
@@ -54,8 +53,7 @@ steps:
           - node_modules
   - commands:
     - "npm i -g vercel"
-    - "npx vercel login --token $VERCEL_AUTH"
-    - "npm run deploy-development"
+    - "npx vercel --token $VERCEL_AUTH"
     if: build.branch == "dev"
     plugins:
     - docker-login#v2.1.0:
