@@ -35,6 +35,7 @@ steps:
           - BUILDKITE_BUILD_NUMBER
           - BUILDKITE_PULL_REQUEST
           - BUILDKITE_BRANCH 
+          - VERCEL_AUTH_TOKEN
     - gencer/cache#v2.4.10:
         id: node # or node-16
         backend: rsync # Optional. Default `backend` is already set to `tarball`
