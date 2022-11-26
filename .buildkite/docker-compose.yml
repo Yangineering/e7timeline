@@ -1,6 +1,6 @@
 version: "2"
 services:
-  node:
+  build-env:
     image: "node:18"
     working_dir: /home/node/app
     environment:
