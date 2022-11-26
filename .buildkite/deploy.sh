@@ -1,7 +1,9 @@
  #!/usr/bin/bash 
- 
+
  if [ $1 = 'main' ]; then
-    npx vercel --prod --token $VERCEL_AUTH"
+    echo 'On main. Deploying to production'
+    npx vercel --prod --token $VERCEL_AUTH
  else
-    npx vercel --token $VERCEL_AUTH"
+    echo 'Not on main. Deploying to development'
+    npx vercel --token $VERCEL_AUTH
  fi

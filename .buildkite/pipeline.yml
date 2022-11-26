@@ -10,6 +10,7 @@ steps:
         env:
           - BUILDKITE_BUILD_NUMBER
           - BUILDKITE_PULL_REQUEST
+          - BUILDKITE_BRANCH 
     - gencer/cache#v2.4.12:
         id: node # or node-16
         backend: rsync # Optional. Default `backend` is already set to `tarball`
@@ -23,7 +24,7 @@ steps:
           - node_modules
   - wait
   - commands:
-    - "./.buildkite/deploy.sh $build.branch"
+    - "./.buildkite/deploy.sh $BUILDKITE_BRANCH"
     plugins:
     - docker-login#v2.1.0:
         username: endqwerty
@@ -33,6 +34,7 @@ steps:
         env:
           - BUILDKITE_BUILD_NUMBER
           - BUILDKITE_PULL_REQUEST
+          - BUILDKITE_BRANCH 
     - gencer/cache#v2.4.10:
         id: node # or node-16
         backend: rsync # Optional. Default `backend` is already set to `tarball`
