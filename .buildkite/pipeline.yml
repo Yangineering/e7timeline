@@ -24,7 +24,6 @@ steps:
           - node_modules
   - wait
   - commands:
-    - "./.buildkite/deploy.sh $BUILDKITE_BRANCH"
     - "echo $VERCEL_AUTH_TOKEN"
     plugins:
     - docker-login#v2.1.0:
