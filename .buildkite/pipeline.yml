@@ -1,8 +1,5 @@
 steps:
-  - command: 
-    - "ls"
-    - "pwd"
-    - "build.sh"
+  - command: "./build.sh"
     artifact_paths: "dist/*"
     plugins:
     - docker-login#v2.1.0:
@@ -26,6 +23,7 @@ steps:
           path: '/tmp/buildkite-cache' # Defaults to /tmp with v2.4.10+
         paths:
           - node_modules
+  - wait
   - commands:
     - "npm i -g vercel"
     - "npx vercel login --token $VERCEL_AUTH"
