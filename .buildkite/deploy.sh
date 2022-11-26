@@ -1,7 +1,5 @@
  #!/usr/bin/bash 
 
-echo $VERCEL_AUTH_TOKEN
-
 if [ $1 = 'main' ]; then
    echo 'On main. Deploying to production'
    npx vercel --prod --token=$VERCEL_AUTH_TOKEN
