@@ -1,0 +1,52 @@
+steps:
+  - label: ':typescript: Build and Test'
+    command: ".buildkite/build_and_test.sh"
+    artifact_paths: "dist/*"
+    plugins:
+    - docker-login#v2.1.0:
+        username: endqwerty
+        password-env: MY_DOCKER_LOGIN_PASSWORD
+    - docker#v5.3.0:
+        image: "node:18-alpine"
+        environment:
+          - BUILDKITE_BUILD_NUMBER
+          - BUILDKITE_PULL_REQUEST
+          - BUILDKITE_BRANCH 
+    - gencer/cache#v2.4.12:
+        id: node # or node-16
+        backend: rsync # Optional. Default `backend` is already set to `tarball`
+        key: "v1-cache-{{ id }}-{{ runner.os }}-{{ checksum './package-lock.json' }}" # Calculate whole 'app/javascript' recursively
+        restore-keys:
+          - 'v1-cache-{{ id }}-{{ runner.os }}-'
+          - 'v1-cache-{{ id }}-'
+        rsync:
+          path: '/tmp/buildkite-cache' # Defaults to /tmp with v2.4.10+
+        paths:
+          - node_modules
+  - wait
+  - label: ":rocket: Deploy with Vercel"
+    command: "./.buildkite/deploy.sh $BUILDKITE_BRANCH"
+    plugins:
+    - docker-login#v2.1.0:
+        username: endqwerty
+        password-env: MY_DOCKER_LOGIN_PASSWORD
+    - docker#v5.3.0:
+        image: "node:18-alpine"
+        environment:
+          - BUILDKITE_BUILD_NUMBER
+          - BUILDKITE_PULL_REQUEST
+          - BUILDKITE_BRANCH 
+          - VERCEL_AUTH_TOKEN
+          - VERCEL_ORG_ID
+          - VERCEL_PROJECT_ID
+    - gencer/cache#v2.4.10:
+        id: node # or node-16
+        backend: rsync # Optional. Default `backend` is already set to `tarball`
+        key: "v1-cache-{{ id }}-{{ runner.os }}-{{ checksum './package-lock.json' }}" # Calculate whole 'app/javascript' recursively
+        restore-keys:
+          - 'v1-cache-{{ id }}-{{ runner.os }}-'
+          - 'v1-cache-{{ id }}-'
+        rsync:
+          path: '/tmp/buildkite-cache' # Defaults to /tmp with v2.4.10+
+        paths:
+          - node_modules
