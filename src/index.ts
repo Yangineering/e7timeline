@@ -14,7 +14,7 @@ const state = r({
 
 const app = t`
 <h1>e7 Timeline</h1>
-<div class="grid grid-cols-2 xl:grid-cols-5 w-full">
+<div class="grid grid-cols-2 2xl:grid-cols-5 w-full">
   ${events()}
 
   ${banners()}
