@@ -1,6 +1,6 @@
  #!/usr/bin/bash 
 
-echo $$VERCEL_AUTH_TOKEN
+echo $VERCEL_AUTH_TOKEN
 
 if [ $1 = 'main' ]; then
    echo 'On main. Deploying to production'
