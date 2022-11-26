@@ -7,7 +7,7 @@ steps:
         password-env: MY_DOCKER_LOGIN_PASSWORD
     - docker#v5.3.0:
         image: "node:18-alpine"
-        env:
+        environment:
           - BUILDKITE_BUILD_NUMBER
           - BUILDKITE_PULL_REQUEST
           - BUILDKITE_BRANCH 
@@ -24,14 +24,14 @@ steps:
           - node_modules
   - wait
   - commands:
-    - "echo $VERCEL_AUTH_TOKEN"
+    - "./.buildkite/deploy.sh $BUILDKITE_BRANCH"
     plugins:
     - docker-login#v2.1.0:
         username: endqwerty
         password-env: MY_DOCKER_LOGIN_PASSWORD
     - docker#v5.3.0:
         image: "node:18-alpine"
-        env:
+        environment:
           - BUILDKITE_BUILD_NUMBER
           - BUILDKITE_PULL_REQUEST
           - BUILDKITE_BRANCH 
