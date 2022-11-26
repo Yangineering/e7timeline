@@ -1,11 +1,4 @@
 steps:
-  - label: ":docker: pull"
-    plugins:
-      - docker-login#v2.1.0:
-          username: endqwerty
-          password-env: MY_DOCKER_LOGIN_PASSWORD
-      - docker#v5.3.0:
-          image: "node:18-alpine"
   - command: "./build.sh"
     artifact_paths: "dist/*"
     plugins:
