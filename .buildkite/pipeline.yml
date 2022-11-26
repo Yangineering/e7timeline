@@ -41,7 +41,7 @@ steps:
             - BUILDKITE_PULL_REQUEST
           run: node
   - command: "npm run deploy-development"
-    if: build.branch == /dev/
+    if: build.branch == "dev"
     plugins:
     - docker-login#v2.1.0:
         username: endqwerty
