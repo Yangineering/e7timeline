@@ -4,7 +4,6 @@ steps:
     - "npm run lint"
     - "npm run test"
     - "npm run build"
-    - "npm run deploy"
     plugins:
     - docker-login#v2.1.0:
         username: endqwerty
@@ -28,7 +27,7 @@ steps:
         paths:
           - node_modules
   - command: "npm run deploy"
-    if: build.branch == /main/
+    if: build.branch == "main"
     plugins:
     - docker-login#v2.1.0:
         username: endqwerty
