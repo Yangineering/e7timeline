@@ -13,7 +13,7 @@ const state = r({
 })
 
 const app = t`
-<div class="grid grid-cols-5">
+<div class="grid grid-cols-2 md:grid-cols-5 w-full">
   <h1>e7 Timeline</h1>
   ${events()}
 
