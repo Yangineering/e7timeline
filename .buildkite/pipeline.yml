@@ -1,25 +1,22 @@
-env:
-  COMPOSE_FILE: .buildkite/docker-compose.yml
 steps:
-  - label: ":docker: Build"
+  - label: ":docker: pull"
     plugins:
       - docker-login#v2.1.0:
           username: endqwerty
           password-env: MY_DOCKER_LOGIN_PASSWORD
-      - docker-compose#v4.7.0:
-          build: build-env
-          image-repository: index.docker.io/endqwerty/alpine-node
+      - docker#v5.3.0:
+          image: "node:18-alpine"
   - command: "./build.sh"
     artifact_paths: "dist/*"
     plugins:
     - docker-login#v2.1.0:
         username: endqwerty
         password-env: MY_DOCKER_LOGIN_PASSWORD
-    - docker-compose#v4.7.0:
-          env:
-            - BUILDKITE_BUILD_NUMBER
-            - BUILDKITE_PULL_REQUEST
-          run: build-env
+    - docker#v5.3.0:
+        image: "node:18-alpine"
+        env:
+          - BUILDKITE_BUILD_NUMBER
+          - BUILDKITE_PULL_REQUEST
     - gencer/cache#v2.4.12:
         id: node # or node-16
         backend: rsync # Optional. Default `backend` is already set to `tarball`
@@ -40,11 +37,11 @@ steps:
     - docker-login#v2.1.0:
         username: endqwerty
         password-env: MY_DOCKER_LOGIN_PASSWORD
-    - docker-compose#v4.7.0:
-          env:
-            - BUILDKITE_BUILD_NUMBER
-            - BUILDKITE_PULL_REQUEST
-          run: build-env
+    - docker#v5.3.0:
+        image: "node:18-alpine"
+        env:
+          - BUILDKITE_BUILD_NUMBER
+          - BUILDKITE_PULL_REQUEST
     - gencer/cache#v2.4.10:
         id: node # or node-16
         backend: rsync # Optional. Default `backend` is already set to `tarball`
@@ -64,11 +61,11 @@ steps:
     - docker-login#v2.1.0:
         username: endqwerty
         password-env: MY_DOCKER_LOGIN_PASSWORD
-    - docker-compose#v4.7.0:
-          env:
-            - BUILDKITE_BUILD_NUMBER
-            - BUILDKITE_PULL_REQUEST
-          run: build-env
+    - docker#v5.3.0:
+        image: "node:18-alpine"
+        env:
+          - BUILDKITE_BUILD_NUMBER
+          - BUILDKITE_PULL_REQUEST
     - gencer/cache#v2.4.10:
         id: node # or node-16
         backend: rsync # Optional. Default `backend` is already set to `tarball`
