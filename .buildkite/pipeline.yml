@@ -4,7 +4,7 @@ steps:
     - "npm run lint"
     - "npm run test"
     - "npm run build"
-    # - "npm run deploy"
+    - "npm run deploy"
     plugins:
     - docker-login#v2.1.0:
         username: endqwerty
@@ -27,3 +27,30 @@ steps:
           path: '/tmp/buildkite-cache' # Defaults to /tmp with v2.4.10+
         paths:
           - node_modules
+  - command: "npm run deploy"
+    if: build.branch == /main/
+    plugins:
+    - docker-login#v2.1.0:
+        username: endqwerty
+        password-env: MY_DOCKER_LOGIN_PASSWORD
+    - docker-compose#v3.9.0:
+          config:
+            - .buildkite/docker-compose.yml
+          env:
+            - BUILDKITE_BUILD_NUMBER
+            - BUILDKITE_PULL_REQUEST
+          run: node
+  - command: "npm run deploy-development"
+    if: build.branch == /dev/
+    plugins:
+    - docker-login#v2.1.0:
+        username: endqwerty
+        password-env: MY_DOCKER_LOGIN_PASSWORD
+    - docker-compose#v3.9.0:
+          config:
+            - .buildkite/docker-compose.yml
+          env:
+            - BUILDKITE_BUILD_NUMBER
+            - BUILDKITE_PULL_REQUEST
+          run: node
+    
