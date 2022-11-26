@@ -1,5 +1,8 @@
 steps:
-  - command: build.sh
+  - command: 
+    - "ls"
+    - "pwd"
+    - "build.sh"
     artifact_paths: "dist/*"
     plugins:
     - docker-login#v2.1.0:
