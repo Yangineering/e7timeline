@@ -56,6 +56,8 @@ steps:
     - "npm i -g vercel"
     - "npm run deploy-development"
     if: build.branch == "dev"
+    env:
+    - CI: EICcAKehAs0ZiZVg6qbeQfez
     plugins:
     - docker-login#v2.1.0:
         username: endqwerty

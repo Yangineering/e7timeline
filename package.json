@@ -7,7 +7,7 @@
   "scripts": {
     "build": "npx webpack",
     "clean": "rm -rf ./dist",
-    "deploy": "npx vercel",
+    "deploy": "npx vercel --prod",
     "deploy-development": "npx vercel",
     "lint": "echo \"Error: no lint specified\" && exit 0",
     "test": "echo \"Error: no test specified\" && exit 0"
