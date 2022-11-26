@@ -23,8 +23,7 @@ steps:
         paths:
           - node_modules
   - wait
-  - commands:
-    - "./.buildkite/deploy.sh $BUILDKITE_BRANCH"
+  - command: "./.buildkite/deploy.sh $BUILDKITE_BRANCH"
     plugins:
     - docker-login#v2.1.0:
         username: endqwerty
@@ -36,6 +35,8 @@ steps:
           - BUILDKITE_PULL_REQUEST
           - BUILDKITE_BRANCH 
           - VERCEL_AUTH_TOKEN
+          - VERCEL_ORG_ID
+          - VERCEL_PROJECT_ID
     - gencer/cache#v2.4.10:
         id: node # or node-16
         backend: rsync # Optional. Default `backend` is already set to `tarball`

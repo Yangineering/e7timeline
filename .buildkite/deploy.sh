@@ -1,9 +1,14 @@
  #!/usr/bin/bash 
 
+npm install --global vercel
 if [ $1 = 'main' ]; then
    echo 'On main. Deploying to production'
-   npx vercel -y --prod --token=$VERCEL_AUTH_TOKEN
+   vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+   vercel build --prod --token=$VERCEL_TOKEN
+   vercel deploy --prebuilt --prod  --token=$VERCEL_TOKEN
 else
    echo 'Not on main. Deploying to development'
-   npx vercel -y --token=$VERCEL_AUTH_TOKEN
+   vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+   vercel build --token=$VERCEL_TOKEN
+   vercel deploy --prebuilt  --token=$VERCEL_TOKEN
 fi
