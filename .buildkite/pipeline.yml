@@ -1,5 +1,6 @@
 steps:
-  - command: ".buildkite/build.sh"
+  - label: ':typescript: Build and Test'
+    command: ".buildkite/build_and_test.sh"
     artifact_paths: "dist/*"
     plugins:
     - docker-login#v2.1.0:
@@ -23,7 +24,8 @@ steps:
         paths:
           - node_modules
   - wait
-  - command: "./.buildkite/deploy.sh $BUILDKITE_BRANCH"
+  - label: ":rocket: Deploy with Vercel"
+    command: "./.buildkite/deploy.sh $BUILDKITE_BRANCH"
     plugins:
     - docker-login#v2.1.0:
         username: endqwerty
