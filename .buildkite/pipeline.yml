@@ -1,0 +1,29 @@
+steps:
+  - commands: 
+    - "npm install"
+    - "npm run lint"
+    - "npm run test"
+    - "npm run build"
+    - "npm run deploy"
+    plugins:
+    - docker-login#v2.1.0:
+        username: endqwerty
+        password-env: MY_DOCKER_LOGIN_PASSWORD
+    - docker-compose#v3.9.0:
+          config:
+            - .buildkite/docker-compose.yml
+          env:
+            - BUILDKITE_BUILD_NUMBER
+            - BUILDKITE_PULL_REQUEST
+          run: node
+    - gencer/cache#v2.4.10:
+        id: node # or node-16
+        backend: rsync # Optional. Default `backend` is already set to `tarball`
+        key: "v1-cache-{{ id }}-{{ runner.os }}-{{ checksum './package-lock.json' }}" # Calculate whole 'app/javascript' recursively
+        restore-keys:
+          - 'v1-cache-{{ id }}-{{ runner.os }}-'
+          - 'v1-cache-{{ id }}-'
+        rsync:
+          path: '/tmp/buildkite-cache' # Defaults to /tmp with v2.4.10+
+        paths:
+          - node_modules
