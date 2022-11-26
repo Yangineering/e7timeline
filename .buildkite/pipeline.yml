@@ -1,6 +1,11 @@
+env:
+  COMPOSE_FILE: .buildkite/docker-compose.yml
 steps:
   - label: ":docker: Build"
     plugins:
+      - docker-login#v2.1.0:
+          username: endqwerty
+          password-env: MY_DOCKER_LOGIN_PASSWORD
       - docker-compose#v4.7.0:
           build: build-env
           image-repository: index.docker.io/endqwerty/alpine-node
