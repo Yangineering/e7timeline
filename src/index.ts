@@ -6,21 +6,35 @@ const appElement = document.getElementById("app");
 
 const state = r({
   tabs: [
-    { name: 'Events' },
-    { name: 'Banners' },
-    { name: 'Patches' }
-  ]
+    { name: 'Events', element: events() },
+    { name: 'Banners', element: banners() },
+    { name: 'Patches', element: patches() }
+  ],
+  selectedTab: 0
 })
 
 const app = t`
 <h1>e7 Timeline</h1>
-<h2>Events</h2>
-${events()}
 
-<h2>Banners</h2>
-${banners()}
-
-<h2>Patch Notes</h2>
-${patches()}
+<div class="container">
+  <div class="tabs">
+    ${() => state.tabs.map((tab, index) =>
+      t`
+        <button
+          class="${() => index === state.selectedTab ? 'underline' : ''}"
+          @click="${() => (state.selectedTab = index)}"
+        >
+          <p>${tab.name}</p>
+        </button>
+      `
+    )}
+    <div
+      class="tab-indicator"
+    ></div>
+  </div>
+  <div class="tab-panels">
+    ${() => state.tabs[state.selectedTab].element}
+  </div>
+</div>
 `
 app(appElement);
