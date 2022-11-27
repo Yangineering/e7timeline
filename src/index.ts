@@ -19,13 +19,16 @@ const app = t`
 <h1>e7 Timeline</h1>
 
 <div>
-  <div class="w-full flex flex-row">
+  <div class="flex border-b">
     ${() =>
       state.tabs.map(
         (tab, index) =>
           t`
         <button
-          class="${() => (index === state.selectedTab ? "underline" : "")}"
+          class="text-lg mr-1 bg-white inline-block font-bold py-2 px-8 ${() =>
+            index === state.selectedTab
+              ? "-mb-px border-l border-t border-r rounded-t text-slate-700"
+              : "text-slate-500 hover:text-slate-800"}"
           @click="${() => (state.selectedTab = index)}"
         >
           <p>${tab.name}</p>

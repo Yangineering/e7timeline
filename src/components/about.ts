@@ -5,7 +5,7 @@ export default function about() {
     <h2>About</h2>
     Contact:
     <a
-      class="text-blue-600 dark:text-blue-500 hover:underline"
+      class="text-blue-500 hover:text-blue-800 hover:underline"
       href="mailto:e7timeline@endqwerty.com"
       >e7timeline@endqwerty.com</a
     >
