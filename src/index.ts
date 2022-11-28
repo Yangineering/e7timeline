@@ -3,6 +3,8 @@ import events from "./components/events";
 import banners from "./components/banners";
 import patches from "./components/patches";
 import about from "./components/about";
+import disclaimer from "./components/disclaimer";
+
 const appElement = document.getElementById("app");
 
 const state = r({
@@ -16,19 +18,23 @@ const state = r({
 });
 
 const app = t`
-<h1>e7 Timeline</h1>
-
-<div>
-  <div class="flex border-b">
+<div class="w-screen max-w-5xl mx-auto">
+  <h1>e7 Timeline</h1>
+  <div class="flex flex-col lg:flex-row border-b">
     ${() =>
       state.tabs.map(
         (tab, index) =>
           t`
         <button
-          class="text-lg mr-1 bg-white inline-block font-bold py-2 px-8 ${() =>
-            index === state.selectedTab
-              ? "-mb-px border-l border-t border-r rounded-t text-slate-700"
-              : "text-slate-500 hover:text-slate-800"}"
+          class="${() => {
+            let baseClasses =
+              "text-lg lg:mr-1 bg-white lg:inline-block font-bold lg:py-2 lg:px-8 max-lg:text-left lg:text-center ";
+            return baseClasses.concat(
+              index === state.selectedTab
+                ? "max-lg:border-l-4 lg:-mb-px lg:border-t lg:border-r lg:rounded-t text-slate-700"
+                : "text-slate-500 lg:hover:text-slate-800"
+            );
+          }}"
           @click="${() => (state.selectedTab = index)}"
         >
           <p>${tab.name}</p>
@@ -36,9 +42,21 @@ const app = t`
       `
       )}
   </div>
-  <div class="w-full">
-    ${() => state.tabs[state.selectedTab].element}
+  <div>
+    ${() =>
+      state.tabs.map((tab, index) => {
+        return t`<div class="${() => {
+          let baseClasses = "max-lg:w-96 ";
+          return baseClasses.concat(
+            index === state.selectedTab ? "flex-1" : "hidden"
+          );
+        }}"
+        >
+         ${() => tab.element}
+        </div>`;
+      })}
   </div>
+  ${disclaimer()}
 </div>
 `;
 app(appElement);
