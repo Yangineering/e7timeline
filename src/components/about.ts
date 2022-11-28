@@ -9,7 +9,7 @@ export default function about() {
       href="mailto:e7timeline@endqwerty.com"
       >e7timeline@endqwerty.com</a
     >
-    Upcoming features
+    <div>Upcoming features</div>
     <ul>
       <li>submit patch/banner info</li>
     </ul>

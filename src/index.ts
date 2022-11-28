@@ -18,8 +18,8 @@ const state = r({
 });
 
 const app = t`
-<div class="w-screen max-w-5xl mx-auto">
-  <h1>e7 Timeline</h1>
+<div class="w-screen lg:max-w-5xl mx-auto">
+  <h1 class='font-bold text-lg'>e7 Timeline</h1>
   <div class="flex flex-col lg:flex-row border-b">
     ${() =>
       state.tabs.map(
@@ -28,11 +28,11 @@ const app = t`
         <button
           class="${() => {
             let baseClasses =
-              "text-lg lg:mr-1 bg-white lg:inline-block font-bold lg:py-2 lg:px-8 max-lg:text-left lg:text-center ";
+              "text-2xl h-24 lg:text-md bg-white lg:inline-block font-bold lg:py-2 lg:px-8 text-left lg:text-center ";
             return baseClasses.concat(
               index === state.selectedTab
-                ? "max-lg:border-l-4 lg:-mb-px lg:border-t lg:border-r lg:rounded-t text-slate-700"
-                : "text-slate-500 lg:hover:text-slate-800"
+                ? "max-lg:border-l-4 lg:border-t lg:border-x lg:rounded-t lg:rounded-x text-slate-700"
+                : "lg:mx-px text-slate-500 lg:hover:text-slate-800"
             );
           }}"
           @click="${() => (state.selectedTab = index)}"
@@ -46,7 +46,7 @@ const app = t`
     ${() =>
       state.tabs.map((tab, index) => {
         return t`<div class="${() => {
-          let baseClasses = "max-lg:w-96 ";
+          let baseClasses = " ";
           return baseClasses.concat(
             index === state.selectedTab ? "flex-1" : "hidden"
           );
