@@ -2,9 +2,10 @@ import { reactive, watch, html } from "@arrow-js/core";
 
 export default function events() {
   return html`
-    <div class="h-120 flex flex-col max-w-4xl mx-auto">
+    <div class="h-120 flex flex-col">
       <h2>Events</h2>
       <iframe
+        loading="eager"
         class="airtable-embed flex-1"
         src="https://airtable.com/embed/shrnhVMltxFsLEYWu?backgroundColor=green&layout=card"
         frameborder="0"
